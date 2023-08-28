@@ -1,0 +1,83 @@
+******************* to install docker *************************
+
+1 Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+
+$ sudo apt-get update
+$ sudo apt-get install ca-certificates curl gnupg
+
+2 Add Docker's official GPG key:
+
+$ sudo install -m 0755 -d /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+$ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+3 Use the following command to set up the repository:
+
+$ echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+4 Update the apt package index:
+
+$ sudo apt-get update
+
+5 To install the latest version, run:
+
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+6 Verify that the Docker Engine installation is successful by running the hello-world image.
+
+$ sudo docker run hello-world
+
+***************************** install minikube **************************
+
+1 download latest minikube binary
+
+$ wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+2 copy the download file and store it into the /usr/local/bin/minikube
+
+$ sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+
+3 Give executable permission 
+
+$ sudo chmod 755 /usr/local/bin/minikube
+
+4 check version
+
+$ minikube version
+
+************************** install kubectl ************************
+1 download package
+
+$ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+2 install kubectl
+
+$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+3 test version
+
+$ kubectl version
+
+4 Start minikube 
+
+$  minikube start --driver=docker
+
+note if it give error run this command
+
+$ sudo usermod -aG docker $USER && newgrp docker
+
+5 check status
+
+$ minikube status
+
+******************************************************************************
+note if you open ec2 again run this command
+ 
+$  minikube start --driver=docker
+
+$ minikube status
+
+
