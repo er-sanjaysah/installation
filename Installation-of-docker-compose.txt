@@ -1,0 +1,38 @@
+**************** Installation of docker-compose *****************
+
+NOTE: prerequisite install docker first
+
+1. To download and install Compose standalone, run:
+
+$ curl -SL https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+
+2. Give  executable permission
+
+$ chmod +x /usr/local/bin/docker-compose
+
+3. run command
+
+$ docker-compose
+
+4. check version
+
+$ docker-compose version
+
+*********** Some command for docker-compose ******************
+
+1. To start all container at a time
+
+$ docker-compose up -d
+
+2. to see all running container
+
+$ docker ps
+
+3. to see all stoped container
+
+$ docker ps -a
+
+4. To stop all the running container at a time
+
+$ docker-compose down
+
