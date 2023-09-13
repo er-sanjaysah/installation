@@ -1,0 +1,115 @@
+**************************installation prometheus***************
+sudo su
+cd /opt
+
+1. download tar file
+
+$ wget https://github.com/prometheus/prometheus/releases/download/v2.45.0/prometheus-2.45.0.linux-amd64.tar.gz
+
+2. unzip file
+
+$ tar -xvzf <tar file name>
+
+3. rename the file name
+
+$ mv <existing filename> <newfilename>
+
+   cd <newfilename>
+
+4. copy file to /usr/local/bin so that we can start prometheus from any where
+
+$ cp prometheus /usr/local/bin
+$ cp promtool /usr/local/bin
+
+5. now we have to configure the prometheus.yml file to set the target
+  
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["<paste here public ip or pvt. ip>:9090"]
+
+6. then run the prometheus.yml ie configuration file
+
+$ ./prometheus --config.file=prometheus.yml &
+
+	NOTE & is used for running prometheus continuously
+
+**************                           ***********************
+7. if in prometheus giving error 9090 already in use then do this
+
+$ lsof -i :9090
+$ sudo kill -9 <pid>
+
+********************* Grafana installation *******************************
+
+1. Install the prerequisite packages:
+
+$ sudo apt-get install -y apt-transport-https software-properties-common wget
+
+2. Import the GPG key:
+
+$ sudo mkdir -p /etc/apt/keyrings/
+wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+
+3. To add a repository for stable releases, run the following command:
+
+$ echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+4. Run the following command to update the list of available packages:
+
+$ sudo apt-get update
+
+5 To install Grafana OSS, run the following command:
+
+$ sudo apt-get install grafana
+
+6. To start the service, run the following commands:
+
+$ sudo systemctl daemon-reload
+sudo systemctl start grafana-server
+sudo systemctl status grafana-server
+
+7. To verify that the service is running, run the following command:
+
+$ sudo systemctl status grafana-server
+
+8. To configure the Grafana server to start at boot, run the following command:
+
+$ sudo systemctl enable grafana-server.service
+
+note: open it <publicIp>:3000
+      default username and password : admin 	
+
+
+************* cAdvidor on ubuntu *******************************
+
+1. update docker
+
+$ sudo apt-get update
+
+2. install cAdvisor
+
+$ sudo apt-get -y install cadvisor
+
+Note then update target on prometheus.yml file ie. config file
+
+********************* Node exporter ****************************
+
+1. download package
+
+$ wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
+
+2. unzip file
+
+$ tar -xvzf <filename>
+
+3. rename the file
+
+$ mv <old file> <new file>
+
+4. cd <new file>
+
+5. then run the node exporter default it opens on port 9100
+
+$ ./node_exporter & 
+
+*****************************************************************************************
