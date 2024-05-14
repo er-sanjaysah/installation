@@ -1,0 +1,97 @@
+***************** sonarqube installation **********
+pre requisite: docker installed first
+
+1. pull image from docker hub
+
+$ docker run -d --name sonarqube -p 9000:9000 sonarqube:lts -community
+
+*******************manually******************************
+
+1. check java pre req.
+$ java -version
+
+2. install java
+$ sudo apt install openjdk-17-jdk -y
+
+3 check
+$ java -version
+
+4 now we will install sonarqube
+
+$ cd /opt
+
+5. download zip file
+$ wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.0.0.68432.zip
+
+6. install unzip
+$ sudo apt install unzip
+
+7. unzip file
+$ unzip <zip file here>
+
+8. remove zip file
+$ rm sonarqube-10.0.0.68432.zip 
+
+9. rename the unzip file
+$ mv sonarqube-10.0.0.68432 sonarqube
+
+10. Create a user for sonar
+$ useradd -d /opt/sonarqube sonar
+
+11. to check
+$ cat /etc/passwd | grep sonar
+
+12. see home directory
+$ ls -ld /opt/sonarqube
+
+13. change owner
+$ chown -R sonar:sonar /opt/sonarqube
+
+14. to check
+$ ls -ld /opt/sonarqube
+
+15. write a service file
+
+cat >> /etc/systemd/system/sonarqube.service <<EOL
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=sonar
+Group=sonar
+PermissionsStartOnly=true
+ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
+ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
+StandardOutput=syslog
+LimitNOFILE=65536
+LimitNPROC=4096
+TimeoutStartSec=5
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+16. to see
+$ ls /etc/systemd/system/sonarqube.service
+
+17. open port no 9000
+
+18. start sonarqube
+$ systemctl start sonarqube.service
+
+19. ebable sonarqube
+$ systemctl enable sonarqube.service
+
+20 status sonarqube
+$ systemctl status sonarqube.service
+
+21 check 9000 port used or not
+$ apt install net-tools
+$ netstat -plant | grep 9000
+
+22. now take public ip and open in browser with 9000
+	id: admin
+	pd: admin

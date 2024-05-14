@@ -1,0 +1,25 @@
+************ Installation of Trivy ***************************
+
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
+
+*********** commands **********************************
+
+ stage('trivy scan') {
+            steps {
+                sh "trivy fs ."
+            }
+        }
+
+1. Image scan by trivy
+
+$ trivy image <image name>
+
+2. repo scan
+$ trivy fs --security-check vuln,config <folder name of repo or path>
+
+3. to show custom 
+$ trivy image --security HIGH, CRITICAL <imagename>
