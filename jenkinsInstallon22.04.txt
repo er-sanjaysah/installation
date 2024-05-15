@@ -13,3 +13,8 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 sudo apt-get update
 
 sudo apt-get install jenkins
+
+
+#******************************************
+You tube video link for configuring the agent in master node 
+https://www.youtube.com/watch?v=fphtfmAsfhU   
