@@ -79,6 +79,9 @@ $ sudo systemctl enable grafana-server.service
 note: open it <publicIp>:3000
       default username and password : admin 	
 
+NOTE : use dashboard id 893 for showing containers
+NOTE : use dashboard id 1860 for node exporter and all
+
 
 ************* cAdvidor on ubuntu *******************************
 
