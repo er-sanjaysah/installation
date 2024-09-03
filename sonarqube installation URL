@@ -1,2 +1,5 @@
 https://github.com/jae1choi/sonaqueue-installation-guide?tab=readme-ov-file
 url for sonarqube step by step installer from official 
+
+# install sonarqube with docker container
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
