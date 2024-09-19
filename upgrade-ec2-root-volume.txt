@@ -1,0 +1,24 @@
+step1: go to ec2 instance >> then go to volume which has already attached the volume
+step2: then got to action >> modify volume >> resize the volume size >> click on modify
+step3: then go to console run the command:-
+
+lsblk  ( you will get output like     xvda    60G new
+                                      xvda1   20G old
+
+df -h  ( if u will do this you will see old volume )
+
+# Now Check the filesystem
+sudo file -s /dev/xvda1     [ you will get output like ext4 ]
+
+sudo -i
+
+growpart /dev/xvda 1
+
+lsblk
+
+df -h
+
+resize2fs /dev/xvda1
+
+df -h    // you will get 60Gb attached
+
